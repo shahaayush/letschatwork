@@ -3,6 +3,9 @@ from models import *
 
 app= Flask(__name__)
 
+
+
+
 @app.before_request
 def before_request():
 	initialize_db()
@@ -14,6 +17,7 @@ def teardown_request(exception):
 @app.route('/')
 def home():
 	return render_template('home.html', posts=Post.select().order_by(Post.date.desc()))
+
 
 @app.route('/new_post/')
 def new_post():
@@ -27,6 +31,16 @@ def create_post():
 	)
 	
 	return redirect(url_for('home'))
+
+@app.route('/delete?id=<id>', methods=['POST'])
+
+def delete_post(id):
+	tria = Post.get(Post.id==id)
+	tria.delete_instance()
+	return redirect(url_for('home'))
+
+
+#@deleting_post
 
 if __name__== '__main__':
 	app.run(debug=True)
