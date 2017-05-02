@@ -27,7 +27,7 @@ def new_post():
 def create_post():
 	Post.create(
 		title= request.form['title'],
-		text= request.form['text']
+		text= request.form['text'].decode("utf-8")
 	)
 	
 	return redirect(url_for('home'))

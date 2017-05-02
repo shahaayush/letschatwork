@@ -7,8 +7,9 @@
 	{% for post in posts %}
 		<h1> {{post.title}} </h1>
 		<h4>Posted at: {{ post.date.strftime('%m/%d/%Y at %G:%I%p') }}</h4>
-		<p> {{post.text}} </p>
-		
+		 {% for line in post.text.split("\n") %}
+				<p>{{line}}</p> 
+		 {% endfor %}
 		<form action="{{ url_for('delete_post', id=post.id) }}" method="post">
 			<input type="submit" value="Delete-Post" />
     </form>
